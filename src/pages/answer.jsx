@@ -32,6 +32,7 @@ function Answer({ pos, content, selected, correct, onSelect }) {
           textAlign: 'left',
           alignContent: 'start',
           wordWrap: 'break-word',
+          whiteSpace: 'pre-line',
         }}>
         {content}
       </div>
@@ -39,7 +40,7 @@ function Answer({ pos, content, selected, correct, onSelect }) {
   );
 }
 Answer.propTypes = {
-  pos: PropTypes.string.isRequired,
+  pos: PropTypes.number.isRequired,
   content: PropTypes.string.isRequired,
   selected: PropTypes.bool.isRequired,
   correct: PropTypes.bool.isRequired,

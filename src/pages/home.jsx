@@ -1,3 +1,4 @@
+import React from 'react';
 import { Container } from '@mui/material';
 import { FullPage, Slide } from 'react-full-page';
 import { ToastContainer, toast } from 'react-toastify';
@@ -6,18 +7,68 @@ import SuccessPage from './success-page';
 import Question from './question';
 
 function Home() {
+  const fullPageRef = React.createRef();
+
+  const toastContent = (msg) => {
+    return (
+      // background: 'white',
+      // boxShadow: '0px 4px 8px rgba(3, 7, 18, 0.08)',
+      // borderRadius: 8,
+      <div
+        style={{
+          width: '200px',
+          height: '20px',
+          paddingLeft: 12,
+          paddingRight: 12,
+          paddingTop: 8,
+          paddingBottom: 8,
+
+          overflow: 'hidden',
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          display: 'inline-flex',
+        }}>
+        <div
+          style={{
+            textAlign: 'center',
+            color: '#4B5563',
+            fontSize: 12,
+            fontFamily: 'Inter',
+            fontWeight: '500',
+            wordWrap: 'break-word',
+          }}>
+          {msg}
+        </div>
+      </div>
+    );
+  };
   const onPostToast = (success) => {
+    toast.dismiss();
     if (success) {
-      toast.success('🎉 答对了！');
+      toast.info(toastContent('🎉 答对了！'), { icon: false });
+      setTimeout(() => {
+        fullPageRef.current.scrollNext();
+      }, 1000);
     } else {
-      toast.error('⛔️ Opps, You can make a new selection.');
+      toast.error(toastContent('⛔️ Opps, You can make a new selection.'), { icon: false });
     }
   };
   return (
     <>
-      <ToastContainer position="top-center" autoClose={1000} newestOnTop closeOnClick hideProgressBar />
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        newestOnTop
+        hideProgressBar
+        theme="transparent"
+        style={{
+          background: 'transparent',
+          fontSize: '12sp',
+        }}
+      />
       <Container maxWidth="sm">
-        <FullPage>
+        <FullPage ref={fullPageRef} style={{ scrollOverflow: false, scrollBar: false }}>
           <Slide>
             <Question
               index="问题 1/4"
@@ -54,6 +105,7 @@ function Home() {
                 'C: DID Spaces 是一个虚拟现实游戏，让玩家可以探索和建立自己的数字世界。',
               ]}
               correctPos={1}
+              toast={onPostToast}
             />
           </Slide>
           <Slide>

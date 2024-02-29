@@ -75,7 +75,7 @@ function Question({ index, question, answers, correctPos, toast }) {
 Question.propTypes = {
   index: PropTypes.string.isRequired,
   question: PropTypes.string.isRequired,
-  answers: PropTypes.string.isRequired,
+  answers: PropTypes.array.isRequired,
   correctPos: PropTypes.number.isRequired,
   toast: PropTypes.func.isRequired,
 };

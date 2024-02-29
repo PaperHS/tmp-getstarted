@@ -1,4 +1,7 @@
 import { Container, Grid } from '@mui/material';
+import Lottie from 'react-lottie-player';
+import lottieJson from './success.json';
+
 // eslint-disable-next-line require-await
 async function asyncMobileCall(...args) {
   return new Promise((resolve, reject) => {
@@ -32,16 +35,22 @@ function SuccessPage() {
     <Container maxWidth="sm">
       <Grid container direction="column" justifyContent="space-between" alignItems="center" spacing={1}>
         <Grid container spacing={1} justifyContent="center" direction="column">
-          <Grid item style={{ marginTop: 100 }}>
-            <div
-              style={{
-                color: '#030712',
-                fontSize: 32,
-                fontFamily: 'Inter',
-                fontWeight: '700',
-                wordWrap: 'break-word',
-              }}>
-              Success
+          <Grid item style={{ marginTop: 100 }} justifyContent="center" alignItems="center">
+            <div>
+              <div style={{ zIndex: 0, position: 'absolute', left: '100px' }}>
+                <Lottie loop animationData={lottieJson} play style={{ width: 200, height: 200 }} />
+              </div>
+              <div
+                style={{
+                  color: '#030712',
+                  fontSize: 32,
+                  fontFamily: 'Inter',
+                  fontWeight: '700',
+                  wordWrap: 'break-word',
+                  zIndex: 1,
+                }}>
+                Success
+              </div>
             </div>
           </Grid>
           <Grid item style={{ marginTop: 20 }}>
