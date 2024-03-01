@@ -75,7 +75,7 @@ function Home() {
           <Slide>
             <Question
               index="问题 1/4"
-              question="什么是DID?"
+              question="关于DID的描述下面的哪一个是正确的？"
               answers={[
                 'A: DID是一种数字货币，用于在线交易和支付。',
                 'B: DID是一种数字音频格式，用于存储音乐和声音文件。',
@@ -88,11 +88,11 @@ function Home() {
           <Slide>
             <Question
               index="问题 2/4"
-              question="什么是Passport?"
+              question="关于Passport的描述下面的哪一个是正确的？"
               answers={[
-                'A: Passport是一种护照类型，用于国际旅行时验证身份。',
-                'B: Passport是一种密码管理软件，用于存储和管理用户的登录凭证。',
-                'C: Passport 是为用户颁发的,存储在用户钱包里,用于登录应用的可信任的凭证,具有不同的认证身份,它通常包含Owner, Admin, Member和Guest.',
+                'A: 在 DID Wallet 中，Passport是一种护照类型，用于国际旅行时验证身份。',
+                'B: 在 DID Wallet 中，Passport是一种密码管理软件，用于存储和管理用户的登录凭证。',
+                'C: 在 DID Wallet 中，Passport 是为用户颁发的,存储在用户钱包里,用于登录应用的可信任的凭证,具有不同的认证身份,它通常包含Owner, Admin, Member和Guest。',
               ]}
               correctPos={2}
               toast={onPostToast}
@@ -101,7 +101,7 @@ function Home() {
           <Slide>
             <Question
               index="问题 3/4"
-              question="什么是DID Spaces?"
+              question="关于DID Spaces的描述下面的哪一个是正确的？"
               answers={[
                 'A: DID Spaces 是一个社交平台，让用户可以分享他们的个人生活和经历。',
                 'B: DID Spaces 为你提供了去中心化的个人空间， 你可以自由创建和管理数字资产， 获得更多的自由和控制权， 让你的数字空间更加安全、私密、可靠！',
@@ -114,7 +114,7 @@ function Home() {
           <Slide>
             <Question
               index="问题 4/4"
-              question="领取DID Spaces Passport之后我可以干什么？"
+              question="关于DID Spaces Passport的描述下面的哪一个是正确的？"
               answers={[
                 'A: 领取DID Spaces Passport之后可以进行社交媒体分享和互动',
                 'B: 领取DID Spaces Passport之后可以支付购物款项。',
