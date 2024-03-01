@@ -3,7 +3,7 @@ import Lottie from 'react-lottie-player';
 import lottieJson from './success.json';
 
 // eslint-disable-next-line require-await
-async function asyncMobileCall(...args) {
+export async function asyncMobileCall(...args) {
   return new Promise((resolve, reject) => {
     import('dsbridge')
       .then((dsbridge) => {

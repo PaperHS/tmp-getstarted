@@ -3,8 +3,8 @@ import { Container } from '@mui/material';
 import { FullPage, Slide } from 'react-full-page';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import SuccessPage from './success-page';
 import Question from './question';
+import SuccessPage, { asyncMobileCall } from './success-page';
 
 function Home() {
   const fullPageRef = React.createRef();
@@ -47,6 +47,9 @@ function Home() {
     toast.dismiss();
     if (success) {
       toast.info(toastContent('🎉 答对了！'), { icon: false });
+      if (fullPageRef.current.getCurrentSlideIndex() === 3) {
+        asyncMobileCall('arcFetchDIDSpacesPassports');
+      }
       setTimeout(() => {
         fullPageRef.current.scrollNext();
       }, 1000);
