@@ -1,19 +1,15 @@
-import React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Container } from '@mui/material';
-import { FullPage, Slide } from 'react-full-page';
+import styled from '@emotion/styled';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SuccessPage from './success-page';
 import Question from './question';
-import SuccessPage, { asyncMobileCall } from './success-page';
 
 function Home() {
-  const fullPageRef = React.createRef();
-
+  const [index, setIndex] = useState(0);
   const toastContent = (msg) => {
     return (
-      // background: 'white',
-      // boxShadow: '0px 4px 8px rgba(3, 7, 18, 0.08)',
-      // borderRadius: 8,
       <div
         style={{
           width: '200px',
@@ -22,7 +18,9 @@ function Home() {
           paddingRight: 12,
           paddingTop: 8,
           paddingBottom: 8,
-
+          background: 'white',
+          boxShadow: '0px 4px 8px rgba(3, 7, 18, 0.08)',
+          borderRadius: 8,
           overflow: 'hidden',
           flexDirection: 'column',
           justifyContent: 'flex-end',
@@ -47,32 +45,71 @@ function Home() {
     toast.dismiss();
     if (success) {
       toast.info(toastContent('🎉 答对了！'), { icon: false });
-      if (fullPageRef.current.getCurrentSlideIndex() === 3) {
-        asyncMobileCall('arcFetchDIDSpacesPassports');
-      }
+      containerRef.current.style.transform = 'translateY(-100%)';
+      containerRef.current.style.opacity = 0;
+
       setTimeout(() => {
-        fullPageRef.current.scrollNext();
+        // containerRef.current.style.transform = 'translateY(100%)';
+        // containerRef.current.style.opacity = 1;
+        setIndex(index + 1);
       }, 1000);
     } else {
       toast.error(toastContent('⛔️ Opps, You can make a new selection.'), { icon: false });
     }
   };
+
+  const Outer = styled.div`
+    .slide-container {
+      transition:
+        transform 0.5s ease,
+        opacity 0.5s ease;
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    .toast-container {
+      z-index: 0;
+      box-shadow: none;
+      .Toastify__toast {
+        box-shadow: none;
+      }
+    }
+  `;
+
+  const containerRef = useRef(null);
+  useEffect(() => {
+    // 过渡结束后回调
+    const onTransitionEnd = () => {
+      containerRef.current.style.transform = 'none';
+    };
+    const currentRef = containerRef.current;
+    containerRef.current.addEventListener('transitionend', onTransitionEnd);
+    setTimeout(() => {
+      containerRef.current.style.transform = 'translateY(0%)';
+      containerRef.current.style.opacity = 1;
+    }, 300);
+    return () => {
+      currentRef.removeEventListener('transitionend', onTransitionEnd);
+    };
+  });
+
   return (
-    <>
+    <Outer>
       <ToastContainer
         position="top-center"
         autoClose={1000}
         newestOnTop
         hideProgressBar
         theme="transparent"
+        className="toast-container"
         style={{
           background: 'transparent',
           fontSize: '12sp',
+          boxShadow: 'none',
         }}
       />
       <Container maxWidth="sm">
-        <FullPage ref={fullPageRef} style={{ scrollOverflow: false, scrollBar: false }}>
-          <Slide>
+        <div ref={containerRef} className="slide-container">
+          {index === 0 && (
             <Question
               index="问题 1/4"
               question="关于DID的描述下面的哪一个是正确的？"
@@ -84,22 +121,23 @@ function Home() {
               correctPos={2}
               toast={onPostToast}
             />
-          </Slide>
-          <Slide>
+          )}
+          {index === 1 && (
             <Question
               index="问题 2/4"
-              question="关于Passport的描述下面的哪一个是正确的？"
+              question="什么是Passport?"
               answers={[
-                'A: 在 DID Wallet 中，Passport是一种护照类型，用于国际旅行时验证身份。',
-                'B: 在 DID Wallet 中，Passport是一种密码管理软件，用于存储和管理用户的登录凭证。',
-                'C: 在 DID Wallet 中，Passport 是为用户颁发的,存储在用户钱包里,用于登录应用的可信任的凭证,具有不同的认证身份,它通常包含Owner, Admin, Member和Guest。',
+                'A: Passport是一种护照类型，用于国际旅行时验证身份。',
+                'B: Passport是一种密码管理软件，用于存储和管理用户的登录凭证。',
+                'C: Passport 是为用户颁发的,存储在用户钱包里,用于登录应用的可信任的凭证,具有不同的认证身份,它通常包含Owner, Admin, Member和Guest.',
               ]}
               correctPos={2}
               toast={onPostToast}
             />
-          </Slide>
-          <Slide>
+          )}
+          {index === 2 && (
             <Question
+              className="slide-container"
               index="问题 3/4"
               question="关于DID Spaces的描述下面的哪一个是正确的？"
               answers={[
@@ -110,9 +148,10 @@ function Home() {
               correctPos={1}
               toast={onPostToast}
             />
-          </Slide>
-          <Slide>
+          )}
+          {index === 3 && (
             <Question
+              className="slide-container"
               index="问题 4/4"
               question="关于DID Spaces Passport的描述下面的哪一个是正确的？"
               answers={[
@@ -123,13 +162,11 @@ function Home() {
               correctPos={2}
               toast={onPostToast}
             />
-          </Slide>
-          <Slide>
-            <SuccessPage />
-          </Slide>
-        </FullPage>
+          )}
+          {index === 4 && <SuccessPage />}
+        </div>
       </Container>
-    </>
+    </Outer>
   );
 }
 

@@ -1,4 +1,5 @@
-import { Container, Grid } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Container, Grid, CircularProgress } from '@mui/material';
 import Lottie from 'react-lottie-player';
 import lottieJson from './success.json';
 
@@ -31,111 +32,131 @@ export async function asyncMobileCall(...args) {
   });
 }
 function SuccessPage() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const loadNFT = () => {
+      asyncMobileCall('arcFetchDIDSpacesPassports');
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+    };
+    loadNFT();
+  }, [loading]);
   return (
     <Container maxWidth="sm">
-      <Grid container direction="column" justifyContent="space-between" alignItems="center" spacing={1}>
-        <Grid container spacing={1} justifyContent="center" direction="column">
-          <Grid item style={{ marginTop: 100 }} justifyContent="center" alignItems="center">
-            <div>
-              <div style={{ zIndex: 0, position: 'absolute', left: '100px' }}>
-                <Lottie loop animationData={lottieJson} play style={{ width: 200, height: 200 }} />
+      {loading && (
+        <Grid container justifyContent="center" alignItems="center" height="100vh" direction="column">
+          <Grid item>
+            <CircularProgress />
+          </Grid>
+          <div style={{ marginTop: 20 }}>Loading...</div>
+        </Grid>
+      )}
+      {!loading && (
+        <Grid container direction="column" justifyContent="space-between" alignItems="center" spacing={1}>
+          <Grid container spacing={1} justifyContent="center" direction="column">
+            <Grid item style={{ marginTop: 100 }} justifyContent="center" alignItems="center">
+              <div>
+                <div style={{ zIndex: 0, position: 'absolute', left: '100px' }}>
+                  <Lottie loop animationData={lottieJson} play style={{ width: 200, height: 200 }} />
+                </div>
+                <div
+                  style={{
+                    color: '#030712',
+                    fontSize: 32,
+                    fontFamily: 'Inter',
+                    fontWeight: '700',
+                    wordWrap: 'break-word',
+                    zIndex: 1,
+                  }}>
+                  Success
+                </div>
               </div>
+            </Grid>
+            <Grid item style={{ marginTop: 20 }}>
               <div
                 style={{
-                  color: '#030712',
-                  fontSize: 32,
-                  fontFamily: 'Inter',
-                  fontWeight: '700',
-                  wordWrap: 'break-word',
-                  zIndex: 1,
+                  width: '100%',
+                  height: '100%',
+
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  display: 'inline-flex',
                 }}>
-                Success
+                <img
+                  style={{ width: 204, height: 228 }}
+                  alt="nft"
+                  src="https://bbqa4wgh26xvwv57sp6bxxxjcolvxyijsayluplwmoi.did.abtnet.io/image-bin/uploads/de72adcfc319deb11e0105978bc55ec7.png"
+                />
               </div>
-            </div>
+            </Grid>
+            <Grid item style={{ marginTop: 20 }}>
+              <div
+                style={{
+                  width: '100%',
+                  textAlign: 'center',
+                  color: 'black',
+                  fontSize: 16,
+                  fontFamily: 'Inter',
+                  fontWeight: '400',
+                  wordWrap: 'break-word',
+                }}>
+                Your wallet access records have been backed up to DID Spaces.
+              </div>
+            </Grid>
+            <Grid item style={{ marginTop: 20 }}>
+              <div
+                style={{
+                  width: '100%',
+                  textAlign: 'center',
+                  color: '#3B82F6',
+                  fontSize: 16,
+                  fontFamily: 'Inter',
+                  fontWeight: '400',
+                  wordWrap: 'break-word',
+                }}
+                onClick={() => {
+                  asyncMobileCall('arcGotoDIDSpacesDetails');
+                  asyncMobileCall('arcClosePage');
+                }}>
+                ‌‌‌‌View backup data
+              </div>
+            </Grid>
           </Grid>
-          <Grid item style={{ marginTop: 20 }}>
+          <Grid item xs={6} style={{ marginTop: 100 }}>
             <div
               style={{
-                width: '100%',
-                height: '100%',
-
+                width: '300px',
+                height: '36px',
+                paddingLeft: 20,
+                paddingRight: 20,
+                paddingTop: 10,
+                paddingBottom: 10,
+                background: '#030712',
+                borderRadius: 8,
+                overflow: 'hidden',
                 justifyContent: 'center',
                 alignItems: 'center',
                 display: 'inline-flex',
               }}>
-              <img
-                style={{ width: 204, height: 228 }}
-                alt="nft"
-                src="https://bbqa4wgh26xvwv57sp6bxxxjcolvxyijsayluplwmoi.did.abtnet.io/image-bin/uploads/de72adcfc319deb11e0105978bc55ec7.png"
-              />
-            </div>
-          </Grid>
-          <Grid item style={{ marginTop: 20 }}>
-            <div
-              style={{
-                width: '100%',
-                textAlign: 'center',
-                color: 'black',
-                fontSize: 16,
-                fontFamily: 'Inter',
-                fontWeight: '400',
-                wordWrap: 'break-word',
-              }}>
-              Your wallet access records have been backed up to DID Spaces.
-            </div>
-          </Grid>
-          <Grid item style={{ marginTop: 20 }}>
-            <div
-              style={{
-                width: '100%',
-                textAlign: 'center',
-                color: '#3B82F6',
-                fontSize: 16,
-                fontFamily: 'Inter',
-                fontWeight: '400',
-                wordWrap: 'break-word',
-              }}
-              onClick={() => {
-                asyncMobileCall('arcGotoDIDSpacesDetails');
-                asyncMobileCall('arcClosePage');
-              }}>
-              ‌‌‌‌View backup data
+              <div
+                style={{
+                  color: 'white',
+                  fontSize: 16,
+                  fontFamily: 'Inter',
+                  fontWeight: '500',
+                  wordWrap: 'break-word',
+                }}
+                onClick={() => {
+                  asyncMobileCall('arcViewDIDSpacesPassports');
+                  asyncMobileCall('arcClosePage');
+                }}>
+                View Details
+              </div>
             </div>
           </Grid>
         </Grid>
-        <Grid item xs={6} style={{ marginTop: 100 }}>
-          <div
-            style={{
-              width: '300px',
-              height: '36px',
-              paddingLeft: 20,
-              paddingRight: 20,
-              paddingTop: 10,
-              paddingBottom: 10,
-              background: '#030712',
-              borderRadius: 8,
-              overflow: 'hidden',
-              justifyContent: 'center',
-              alignItems: 'center',
-              display: 'inline-flex',
-            }}>
-            <div
-              style={{
-                color: 'white',
-                fontSize: 16,
-                fontFamily: 'Inter',
-                fontWeight: '500',
-                wordWrap: 'break-word',
-              }}
-              onClick={() => {
-                asyncMobileCall('arcViewDIDSpacesPassports');
-                asyncMobileCall('arcClosePage');
-              }}>
-              View Details
-            </div>
-          </div>
-        </Grid>
-      </Grid>
+      )}
     </Container>
   );
 }
