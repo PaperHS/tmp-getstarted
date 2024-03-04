@@ -36,7 +36,7 @@ function SuccessPage() {
   useEffect(() => {
     const loadNFT = async () => {
       const nft = await asyncMobileCall('arcFetchDIDSpacesPassports');
-      setNftView(nft);
+      setNftView(nft.data);
     };
     loadNFT();
   }, [nftView]);
@@ -47,7 +47,7 @@ function SuccessPage() {
           <Grid item>
             <CircularProgress />
           </Grid>
-          <div style={{ marginTop: 20 }}>Loading...</div>
+          <div style={{ marginTop: 20 }}>正在领取您的专属云空间</div>
         </Grid>
       )}
       {nftView && (
