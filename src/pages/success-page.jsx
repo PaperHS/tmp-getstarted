@@ -36,7 +36,8 @@ function SuccessPage() {
   useEffect(() => {
     const loadNFT = async () => {
       const nft = await asyncMobileCall('arcFetchDIDSpacesPassports');
-      setNftView(btoa(nft.data));
+      const { data } = JSON.parse(nft);
+      setNftView(btoa(data));
     };
     loadNFT();
   }, [nftView]);
