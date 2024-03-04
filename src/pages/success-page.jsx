@@ -36,7 +36,7 @@ function SuccessPage() {
   useEffect(() => {
     const loadNFT = async () => {
       const nft = await asyncMobileCall('arcFetchDIDSpacesPassports');
-      setNftView(nft.data);
+      setNftView(btoa(nft.data));
     };
     loadNFT();
   }, [nftView]);
@@ -81,7 +81,7 @@ function SuccessPage() {
                   alignItems: 'center',
                   display: 'inline-flex',
                 }}>
-                <img style={{ width: 204, height: 228 }} alt="nft" src={nftView} />
+                <img style={{ width: 204, height: 228 }} alt="nft" src={`data:image/svg+xml;base64,${nftView}`} />
               </div>
             </Grid>
             <Grid item style={{ marginTop: 20 }}>
