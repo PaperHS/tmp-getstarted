@@ -96,7 +96,6 @@ function SuccessPage() {
                   wordWrap: 'break-word',
                 }}>
                 Your wallet access records have been backed up to DID Spaces.
-                {nftView}
               </div>
             </Grid>
             <Grid item style={{ marginTop: 20 }}>
