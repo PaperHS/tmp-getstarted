@@ -32,19 +32,17 @@ export async function asyncMobileCall(...args) {
   });
 }
 function SuccessPage() {
-  const [loading, setLoading] = useState(true);
+  const [nftView, setNftView] = useState(null);
   useEffect(() => {
-    const loadNFT = () => {
-      asyncMobileCall('arcFetchDIDSpacesPassports');
-      setTimeout(() => {
-        setLoading(false);
-      }, 3000);
+    const loadNFT = async () => {
+      const nft = await asyncMobileCall('arcFetchDIDSpacesPassports');
+      setNftView(nft);
     };
     loadNFT();
-  }, [loading]);
+  }, [nftView]);
   return (
     <Container maxWidth="sm">
-      {loading && (
+      {!nftView && (
         <Grid container justifyContent="center" alignItems="center" height="100vh" direction="column">
           <Grid item>
             <CircularProgress />
@@ -52,7 +50,7 @@ function SuccessPage() {
           <div style={{ marginTop: 20 }}>Loading...</div>
         </Grid>
       )}
-      {!loading && (
+      {nftView && (
         <Grid container direction="column" justifyContent="space-between" alignItems="center" spacing={1}>
           <Grid container spacing={1} justifyContent="center" direction="column">
             <Grid item style={{ marginTop: 100 }} justifyContent="center" alignItems="center">
@@ -83,11 +81,7 @@ function SuccessPage() {
                   alignItems: 'center',
                   display: 'inline-flex',
                 }}>
-                <img
-                  style={{ width: 204, height: 228 }}
-                  alt="nft"
-                  src="https://bbqa4wgh26xvwv57sp6bxxxjcolvxyijsayluplwmoi.did.abtnet.io/image-bin/uploads/de72adcfc319deb11e0105978bc55ec7.png"
-                />
+                <img style={{ width: 204, height: 228 }} alt="nft" src={nftView} />
               </div>
             </Grid>
             <Grid item style={{ marginTop: 20 }}>
@@ -138,6 +132,10 @@ function SuccessPage() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 display: 'inline-flex',
+              }}
+              onClick={() => {
+                asyncMobileCall('arcViewDIDSpacesPassports');
+                asyncMobileCall('arcClosePage');
               }}>
               <div
                 style={{
@@ -146,10 +144,6 @@ function SuccessPage() {
                   fontFamily: 'Inter',
                   fontWeight: '500',
                   wordWrap: 'break-word',
-                }}
-                onClick={() => {
-                  asyncMobileCall('arcViewDIDSpacesPassports');
-                  asyncMobileCall('arcClosePage');
                 }}>
                 View Details
               </div>

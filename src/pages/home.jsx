@@ -45,9 +45,10 @@ function Home() {
     toast.dismiss();
     if (success) {
       toast.info(toastContent('🎉 答对了！'), { icon: false });
-      containerRef.current.style.transform = 'translateY(-100%)';
-      containerRef.current.style.opacity = 0;
-
+      setTimeout(() => {
+        containerRef.current.style.transform = 'translateY(-100%)';
+        containerRef.current.style.opacity = 0;
+      }, 900);
       setTimeout(() => {
         // containerRef.current.style.transform = 'translateY(100%)';
         // containerRef.current.style.opacity = 1;
@@ -61,9 +62,9 @@ function Home() {
   const Outer = styled.div`
     .slide-container {
       transition:
-        transform 0.5s ease,
-        opacity 0.5s ease;
-      transform: translateY(100%);
+        transform 0.2s ease,
+        opacity 0.1s ease;
+      transform: translateY(50%);
       opacity: 0;
     }
     .toast-container {

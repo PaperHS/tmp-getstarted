@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Container, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
+import Balancer from 'react-wrap-balancer';
 import Answer from './answer';
 
 function Question({ index, question, answers, correctPos, toast }) {
@@ -34,7 +35,7 @@ function Question({ index, question, answers, correctPos, toast }) {
               fontWeight: '700',
               wordWrap: 'break-word',
             }}>
-            ‌‌‌{question}
+            <Balancer>‌‌‌{question}</Balancer>
           </div>
         </Grid>
         <Grid item>
