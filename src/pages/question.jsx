@@ -33,6 +33,7 @@ function Question({ index, question, answers, correctPos, toast }) {
               fontSize: 32,
               fontFamily: 'Inter',
               fontWeight: '700',
+              textAlign: 'left',
               wordWrap: 'break-word',
             }}>
             <Balancer>‌‌‌{question}</Balancer>

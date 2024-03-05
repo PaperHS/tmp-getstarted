@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 function Answer({ pos, content, selected, correct, onSelect }) {
   const selectColor = correct ? '#3B82F6' : '#F9FAFB';
   const selectTxtColor = correct ? '#FFFFFF' : '#E11D48';
+
   return (
     <div
       style={{
@@ -13,7 +14,8 @@ function Answer({ pos, content, selected, correct, onSelect }) {
         paddingBottom: 8,
         background: selected ? selectColor : '#F9FAFB',
         borderRadius: 8,
-
+        borderStyle: 'solid',
+        borderColor: !correct && selected ? '#E11D48' : 'transparent',
         justifyContent: 'start',
         alignItems: 'start',
         gap: 10,
