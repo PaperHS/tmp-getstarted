@@ -17,7 +17,7 @@ export default flat({
       ],
     },
     q2: {
-      question: 'What is Passport?',
+      question: 'Which of the following descriptions of Passport is correct?',
       answers: [
         'A: Passport is a type of passport used for identity verification when traveling internationally.',
         'B: Passport is a password management software used for storing and managing user login credentials.',

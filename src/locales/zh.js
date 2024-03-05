@@ -18,7 +18,7 @@ export default flat({
     },
 
     q2: {
-      question: '什么是Passport?',
+      question: '关于Passport的描述下面的哪一个是正确的？',
       answers: [
         'A: Passport是一种护照类型，用于国际旅行时验证身份。',
         'B: Passport是一种密码管理软件，用于存储和管理用户的登录凭证。',
